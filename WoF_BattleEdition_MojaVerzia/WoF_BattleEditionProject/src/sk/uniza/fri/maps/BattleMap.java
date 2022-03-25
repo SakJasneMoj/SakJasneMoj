@@ -2,14 +2,8 @@ package sk.uniza.fri.maps;
 
 import sk.uniza.fri.game.Game;
 
-/**
- * 14. 3. 2022 - 12:47
- *
- * @author Alex-PC
- */
 public class BattleMap {
-    
-    
+
     public Room createMap(Game game) {
         Room camp = new Room("Camp - vstup na bojove pole");
         Room kitchen = new Room("Kuchyna");

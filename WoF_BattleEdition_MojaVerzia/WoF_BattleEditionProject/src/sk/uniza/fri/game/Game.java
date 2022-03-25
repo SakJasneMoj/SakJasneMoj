@@ -3,7 +3,8 @@ package sk.uniza.fri.game;
 import sk.uniza.fri.items.*;
 import sk.uniza.fri.maps.BattleMap;
 import sk.uniza.fri.maps.Room;
-import sk.uniza.fri.player.Inventory;
+import sk.uniza.fri.maps.Shop;
+import sk.uniza.fri.maps.TrapRoom;
 import sk.uniza.fri.player.Player;
 import sk.uniza.fri.userInteraction.Command;
 import sk.uniza.fri.userInteraction.Parser;
@@ -42,7 +43,18 @@ public class Game {
             // Start battle if there are enemies in room
             if (!isEnd && this.currentRoom.getEnemiesInRoom() != null) {
                 isEnd = battleManager.startFight(this.player, this.currentRoom, this);
+
             }
+
+            if (!isEnd && this.currentRoom.getEnemiesInRoom() == null && this.currentRoom instanceof TrapRoom) {
+             ((TrapRoom) this.currentRoom).putTrap(this.player);
+            }
+
+            if (!isEnd && this.currentRoom.getEnemiesInRoom() == null && this.currentRoom instanceof Shop) {
+                ((TrapRoom) this.currentRoom).putTrap(this.player);
+            }
+
+
             if (!isEnd) {
                 player.printInfo();
                 if (!this.isLastRoom(currentRoom)) {
@@ -117,23 +129,25 @@ public class Game {
     private void equip(Command command) {
 
         if (!command.hasParameter()) {
-            System.out.println("Eguip what ?");
+            System.out.println("Equip what ?");
             return;
         }
 
         ArrayList<IItem> inventory = this.player.getInventory().getGearItems();
+
         for (IItem gear : inventory) {
 
             if (command.getParameter().equals(gear.getUseName())) {
                 if (gear.getUseName().equals(command.getParameter())) {
-                    ((IGear)gear).eguip(this.player);
+                    ((IGear)gear).equip(this.player);
                     inventory.remove(gear);
                     this.player.getInventory().removeItem(gear);
-                    this.player.getEquipdGear().add(gear);
+                    this.player.getEquippedGear().add(gear);
                     return;
                 }
             }
         }
+
         System.out.println("Neviem aky item");
     }
 
@@ -144,7 +158,7 @@ public class Game {
             return;
         }
 
-        ArrayList<IItem> inventory = this.player.getEquipdGear();
+        ArrayList<IItem> inventory = this.player.getEquippedGear();
         for (IItem gear : inventory) {
 
             if (command.getParameter().equals(gear.getUseName())) {
@@ -154,7 +168,7 @@ public class Game {
                     ((IGear)gear).unEquip(this.player);
                     inventory.add(gear);
                     this.player.getInventory().addItem(gear);
-                    this.player.getEquipdGear().remove(gear);
+                    this.player.getEquippedGear().remove(gear);
                     System.out.println("som hotovy");
                     return;
                 }
@@ -217,7 +231,7 @@ public class Game {
                 this.player.getInventory().showItems();
             case "equipedGear":
                 System.out.println("u have equipd: ");
-                for (IItem gear : this.player.getEquipdGear()) {
+                for (IItem gear : this.player.getEquippedGear()) {
 
                     System.out.println(gear.getName());
                 }

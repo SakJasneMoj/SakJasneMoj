@@ -10,8 +10,6 @@ import sk.uniza.fri.player.Player;
 import java.util.ArrayList;
 import java.util.Random;
 
-import sk.uniza.fri.items.*;
-
 /**
  * 14. 3. 2022 - 12:47
  *
@@ -36,7 +34,7 @@ public class BattleManager {
         this.shortTearmArmorDebufs = 0;
 
 
-        player.reduceCooldownOfUseItems();
+        player.reduceCoolDownOfUseItems();
 
         // ziadny nepriatelia v miestnosti
         if (enemiesInRoom == null) {
@@ -78,13 +76,13 @@ public class BattleManager {
 
                 if (creature instanceof IDebufing) {
                     ((IDebufing) creature).debuf(this.player, this.round);
-                    this.shortTearmArmorDebufs = this.shortTearmArmorDebufs + ((IDebufing) creature).getAmmount();
+                    this.shortTearmArmorDebufs = this.shortTearmArmorDebufs + ((IDebufing) creature).getAmount();
 
                 }
 
                 if (creature instanceof IDebufing) {
                     if (((IDebufing) creature).removeDebuf(this.player, this.round)) {
-                        this.shortTearmArmorDebufs = this.shortTearmArmorDebufs - ((IDebufing) creature).getAmmount();
+                        this.shortTearmArmorDebufs = this.shortTearmArmorDebufs - ((IDebufing) creature).getAmount();
                     }
                 }
 

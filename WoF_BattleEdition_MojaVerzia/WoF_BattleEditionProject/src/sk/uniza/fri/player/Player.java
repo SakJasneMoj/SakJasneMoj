@@ -5,16 +5,11 @@ import sk.uniza.fri.items.*;
 
 import java.util.ArrayList;
 
-/**
- * 14. 3. 2022 - 12:47
- *
- * @author Alex-PC
- */
 public class
 Player implements ICreature {
 
     //basic values
-    private float maximuHealth;
+    private float maximumHealth;
     private float actualHealth;
     private float damage;
     private float armor;
@@ -22,8 +17,8 @@ Player implements ICreature {
     //name of creature
     private String name = "PLAYER";
 
-    // list of equiped items
-    private ArrayList<IItem> equipdGear = new ArrayList<IItem>();
+    // list of equipped items
+    private ArrayList<IItem> equippedGear = new ArrayList<IItem>();
 
     // Inventory
     //private ArrayList<IItem> inventory = new ArrayList<>();
@@ -33,38 +28,43 @@ Player implements ICreature {
     private float damageModifier;
     private float armorModifier;
 
+    //constructor for player
     public Player(float health, float damage, float armor) {
-        this.maximuHealth = health;
+        this.maximumHealth = health;
         this.actualHealth = health;
         this.damage = damage;
         this.armor = armor;
     }
 
+    //return hero damage whit ou modifiers
     public float getDamage() {
         return damage;
     }
 
+    // return hero armor whit out modifiera
     public float getArmor() {
         return armor;
     }
 
-    public float getMaximuHealth() {
-        return maximuHealth;
+    // returns hero maximum health
+    public float getMaximumHealth() {
+        return maximumHealth;
     }
 
+    // return hero health
     @Override
     public float getActualHealth() {
         return this.actualHealth;
     }
 
+    // return player name
     @Override
     public String getName() {
         return name;
     }
 
+    // method where player do damage to other creatures
     public void doDamage(ICreature creature) {
-        // TODO
-        // calculate damage
         creature.takeDamage(this.damage + this.damageModifier);
     }
 
@@ -78,6 +78,7 @@ Player implements ICreature {
         }
     }
 
+    // give information about hero dmg,hp,armor + modifiers
     public void printInfo() {
         System.out.println("-----------------------");
         System.out.println("Player current stats: ");
@@ -109,119 +110,125 @@ Player implements ICreature {
     public void removeArmorModifier(float armorModifier) {
         this.armorModifier = this.armorModifier - armorModifier;
     }
+    // end of modifiers for damage, health and armor
 
+    // method where player can use IUsable items
     public void useItems(IItem usableItem) {
-        //System.out.println("som v metode useIteam v player");
-        // TODO
         for (IItem item : this.inventory.getUsableItems()) {
+
             if (item instanceof IUsable) {
                 if (item.getUseName().equals(usableItem.getUseName())) {
-                    if (((IUsable) item).getActualCooldown() < 1) {
+                    if (((IUsable) item).getActualCoolDown() < 1) {
                         ((IUsable) item).use(this);
-                       // System.out.println("skoncil some metodu useIteam v player");
                         return;
                     } else {
-                        System.out.println("this iteam is on cooldown " + ((IUsable) item).getActualCooldown());
+                        System.out.println("this iteam is on cooldown " + ((IUsable) item).getActualCoolDown());
                     }
-
                 }
-
             }
-            //System.out.println("nepresiel som metodou useItem v player");
         }
-
     }
 
-    public void reduceCooldownOfUseItems() {
+    // method reducing cool down of IUsable items
+    public void reduceCoolDownOfUseItems() {
 
         for (IItem item : this.inventory.getUsableItems()) {
-            if (((IUsable) item).getActualCooldown() > 0) {
-                ((IUsable) item).loverCooldown();
 
+            if (((IUsable) item).getActualCoolDown() > 0) {
+                ((IUsable) item).loverCoolDown();
             }
-            if (((IUsable) item).getActualdurationInRooms() < ((IUsable) item).getDurationsInRooms() ){
-                ((IUsable) item).setActualdurationInRooms(((IUsable) item).getActualdurationInRooms()+1);
+
+            if (((IUsable) item).getActualDurationInRooms() < ((IUsable) item).getDurationsInRooms()) {
+                ((IUsable) item).setActualDurationInRooms(((IUsable) item).getActualDurationInRooms() + 1);
             }
-            if (((IUsable) item).getActualdurationInRooms() > ((IUsable) item).getDurationsInRooms() ){
+
+            if (((IUsable) item).getActualDurationInRooms() > ((IUsable) item).getDurationsInRooms()) {
                 ((IUsable) item).endBonuses(this);
             }
         }
-
     }
 
-    public void addItemToInventory(BananOfDamage bananOfDamage) {
-        if (bananOfDamage != null) {
-            this.inventory.addItem(bananOfDamage);
-            this.inventory.addItem(new PotionOfHealtSmall());
-            this.inventory.addItem(new HealmOfHealth());
+    //method for adding items to player inventory
+    public void addItemToInventory(IItem item) {
+
+        if (item != null) {
+            this.inventory.addItem(new BananOfDamage());
+            this.inventory.addItem(new PotionOfHealthSmall());
+            this.inventory.addItem(new HelmOfHealth());
         }
     }
 
+    // method to increase player actual health
     public void heal(float healthAdd) {
-
         this.actualHealth += healthAdd;
-        if (this.actualHealth > this.maximuHealth) {
-            this.actualHealth = this.maximuHealth;
 
+        if (this.actualHealth > this.maximumHealth) {
+            this.actualHealth = this.maximumHealth;
         }
     }
 
+    // return player inventory
     public Inventory getInventory() {
         return this.inventory;
     }
 
+    // set player inventory
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
     }
 
+    // consuming items of type IConsumable
     public void useConsumable() {
+
         for (IItem item : this.inventory.getConsumableItems()) {
+
             if (item instanceof IConsumable) {
                 ((IConsumable) item).consume(this);
             }
         }
-
     }
 
-    public void setMaximuHealth(float maximuHealth) {
-        this.maximuHealth = maximuHealth;
+    // used for increasing player maximum health
+    public void setMaximumHealth(float maximumHealth) {
+        this.maximumHealth = maximumHealth;
     }
 
-    public ArrayList<IItem> getEquipdGear() {
-        return equipdGear;
+    // return IGear items witch player actually using
+    public ArrayList<IItem> getEquippedGear() {
+        return equippedGear;
     }
-
-    public void setEquipdGear(ArrayList<IItem> equipdGear) {
-        this.equipdGear = equipdGear;
-    }
-
 
     public void setActualHealth(float actualHealth) {
         this.actualHealth = actualHealth;
     }
 
+    // returns player damage modifier
     public float getDamageModifier() {
         return damageModifier;
     }
 
+    // returns player armor modifier
     public float getArmorModifier() {
         return armorModifier;
     }
 
-    public void setDebufs(float ammount, String classOfDebuf) {
+    // adds debuff to player
+        public void setDebuff(float ammount, String classOfDebuf) {
+
         switch (classOfDebuf) {
             case "armor":
                 this.addArmorModifier(-(ammount));
         }
     }
 
-    public void removeDebufs(float ammount, String classOfDebuf) {
+    // remove debuff of player
+    public void removeDebuff(float ammount, String classOfDebuf) {
+
         switch (classOfDebuf) {
             case "armor":
                 this.addArmorModifier(+(ammount));
         }
     }
-
 }
 
 

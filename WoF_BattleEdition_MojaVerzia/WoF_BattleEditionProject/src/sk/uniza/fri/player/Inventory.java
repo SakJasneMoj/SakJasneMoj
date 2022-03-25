@@ -14,29 +14,28 @@ public class Inventory {
 
 
     public void addItem(IItem item) {
+
         if (item == null) {
             return;
         }
+
         if (item instanceof IConsumable) {
             this.inventoryConsumable.add(item);
             return;
-
         } else if (item instanceof IUsable) {
             this.inventoryUsable.add(item);
             return;
-
         } else if (item instanceof IGear) {
             this.inventoryGear.add(item);
             return;
-
-        } else if (item instanceof IPasive) {
+        } else if (item instanceof IPassive) {
             this.inventoryPasive.add(item);
             return;
-
         }
     }
 
     public void removeItem(IItem item) {
+
         if (item == null) {
             return;
         }
@@ -45,14 +44,17 @@ public class Inventory {
             this.inventoryUsable.remove(item);
             return;
         }
+
         if (this.inventoryConsumable.contains(item)) {
             this.inventoryConsumable.remove(item);
             return;
         }
+
         if (this.inventoryGear.contains(item)) {
             this.inventoryGear.remove(item);
             return;
         }
+
         if (this.inventoryPasive.contains(item)) {
             this.inventoryPasive.remove(item);
             return;
@@ -62,64 +64,46 @@ public class Inventory {
 
     public void showItems() {
         System.out.println("Consumable items");
+
         for (IItem item : this.inventoryConsumable) {
             String itemText = String.format("[%s] : %s", item.getName(), item.getDescription());
             System.out.println(itemText);
-
         }
+
         System.out.println("Usable items");
+
         for (IItem item : this.inventoryUsable) {
             String itemText = String.format("[%s] : %s", item.getName(), item.getDescription());
             System.out.println(itemText);
         }
 
         System.out.println("Gear items");
+
         for (IItem item : this.inventoryGear) {
             String itemText = String.format("[%s] : %s", item.getName(), item.getDescription());
             System.out.println(itemText);
         }
 
         System.out.println("Pasive items");
+
         for (IItem item : this.inventoryPasive) {
             String itemText = String.format("[%s] : %s", item.getName(), item.getDescription());
             System.out.println(itemText);
         }
 
-
-   /* if (name.equals(inventoryConsumable)) {
-        for (IItem item : inventoryConsumable) {
-            System.out.println(item.getName());
-
-        }
-
-    }else if(name.equals(inventoryUsable)) {
-        for (IItem item : inventoryUsable) {
-            System.out.println(item.getName());
-
-        }
-
-    }*/
-
     }
 
-
-
-
     public ArrayList<IItem> getUsableItems() {
-
         return this.inventoryUsable;
     }
 
     public ArrayList<IItem> getConsumableItems() {
-
         return this.inventoryConsumable;
     }
 
     public ArrayList<IItem> getGearItems() {
         return this.inventoryGear;
     }
-
-
 }
 
 

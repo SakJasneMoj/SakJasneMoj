@@ -4,7 +4,9 @@ import sk.uniza.fri.player.Player;
 
 public interface IGear {
 
-    void eguip(Player player);
+    void equip(Player player);
+
     void unEquip(Player player);
-    String getPozition();
+
+    String getPosition();
 }

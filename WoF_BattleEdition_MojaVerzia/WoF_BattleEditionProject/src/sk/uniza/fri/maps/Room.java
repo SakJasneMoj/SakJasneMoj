@@ -8,11 +8,6 @@ import sk.uniza.fri.enemy.SkeletonMage;
 import java.util.ArrayList;
 import java.util.Random;
 
-/**
- * 14. 3. 2022 - 12:47
- *
- * @author Alex-PC
- */
 public class Room {
     private String description;
     private Room leftExit;
@@ -22,7 +17,6 @@ public class Room {
     // List of enemies in room
     private ArrayList<ICreature> enemiesInRoom;
 
-
     /**
      * Vytvori miestnost popis ktorej je v parametrom.
      * Po vytvoreni miestnost nema ziadne vychody. Popis miesnost strucne
@@ -30,6 +24,7 @@ public class Room {
      *
      * @param popis text popisu miestnosti.
      */
+
     public Room(String popis) {
         this.description = popis;
     }
@@ -37,7 +32,6 @@ public class Room {
     public void putEnemiesIntoRoom() {
         Random random = new Random();
         enemiesInRoom = new ArrayList<ICreature>();
-
         int numOfSkeletonMages = random.nextInt(0, 1);
 
         if (numOfSkeletonMages == 1) {
@@ -50,20 +44,13 @@ public class Room {
             enemiesInRoom.add((ICreature) new SkeletonArcher());
         }
 
-
         int numOfEnemies = random.nextInt(1, 5);
-        for (int i = 0; i < numOfEnemies; i++) {
 
+        for (int i = 0; i < numOfEnemies; i++) {
             Random random1 = new Random();
             int rand = random1.nextInt(10 + 1);
             int max = 0;
-
-
-                enemiesInRoom.add((ICreature) new Skeleton());
-
-
-
-
+            enemiesInRoom.add((ICreature) new Skeleton());
         }
     }
 
@@ -75,13 +62,17 @@ public class Room {
      * @param middleExit miestnost smerom na vychod.
      * @param rightExit  miestnost smerom na juh.
      */
+
     public void setExits(Room leftExit, Room middleExit, Room rightExit) {
+
         if (leftExit != null) {
             this.leftExit = leftExit;
         }
+
         if (middleExit != null) {
             this.rightExit = middleExit;
         }
+
         if (rightExit != null) {
             this.middleExit = rightExit;
         }
@@ -94,13 +85,14 @@ public class Room {
 //        StringBuilder sb = new StringBuilder();
 //        String popis = "\nV Miestnosti sa nachadzaju tieto predmety: ";
 //        sb.append(popis);
+
 //        for (IInteractable item : items) {
 //            sb.append(item.getName());
 //            sb.append(" ");
 //        }
-//
 //        return this.description + sb.toString();
 //    }
+
     public ArrayList<ICreature> getEnemiesInRoom() {
         return this.enemiesInRoom;
     }

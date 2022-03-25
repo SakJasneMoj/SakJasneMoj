@@ -2,11 +2,6 @@ package sk.uniza.fri.enemy;
 
 import java.util.Random;
 
-/**
- * 14. 3. 2022 - 12:47
- *
- * @author Alex-PC
- */
 public class Skeleton implements ICreature {
 
     private static final float MIN_HP = 10;

@@ -12,7 +12,6 @@ public class AppleOfHealth implements IItem, IUsable {
     private static final int durationInRooms = 1;
     private int actualdurationInRooms = 0;
 
-
     public int getDurationInRooms() {
         return this.durationInRooms;
     }
@@ -35,7 +34,6 @@ public class AppleOfHealth implements IItem, IUsable {
     @Override
     public void use(Player player) {
 
-
         if (!this.wasUsed) {
             if (this.actualCooldown < 1) {
                 player.heal(this.HEALTH_ADD);
@@ -44,12 +42,12 @@ public class AppleOfHealth implements IItem, IUsable {
                 this.wasUsed = true;
             }
         }
-        System.out.println("this iteam is on cooldown " + this.actualCooldown);
 
+        System.out.println("this iteam is on cooldown " + this.actualCooldown);
     }
 
     @Override
-    public void loverCooldown() {
+    public void loverCoolDown() {
         this.actualCooldown = this.actualCooldown - 1;
         if (this.actualCooldown < 0) {
             this.wasUsed = false;
@@ -57,23 +55,22 @@ public class AppleOfHealth implements IItem, IUsable {
     }
 
     @Override
-    public int getActualCooldown() {
+    public int getActualCoolDown() {
         return this.actualCooldown;
     }
 
     @Override
     public void endBonuses(Player player) {
-
     }
 
     @Override
-    public int getActualdurationInRooms() {
+    public int getActualDurationInRooms() {
         return this.actualdurationInRooms;
     }
 
     @Override
-    public void setActualdurationInRooms(int actualdurationInRooms) {
-        this.actualdurationInRooms = actualdurationInRooms;
+    public void setActualDurationInRooms(int actualDurationInRooms) {
+        this.actualdurationInRooms = actualDurationInRooms;
     }
 
     @Override

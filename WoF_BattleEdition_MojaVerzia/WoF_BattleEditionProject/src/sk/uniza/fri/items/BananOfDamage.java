@@ -12,12 +12,14 @@ public class BananOfDamage implements IItem, IUsable {
     private static final int durationInRooms = 1;
     private int actualdurationInRooms = 0;
 
-    public int getActualdurationInRooms() {
+    // returns cool down effect counted in moving through rooms
+    public int getActualDurationInRooms() {
         return this.actualdurationInRooms;
     }
 
-    public void setActualdurationInRooms(int actualdurationInRooms) {
-        this.actualdurationInRooms = actualdurationInRooms;
+    //
+    public void setActualDurationInRooms(int actualDurationInRooms) {
+        this.actualdurationInRooms = actualDurationInRooms;
     }
 
     @Override
@@ -28,7 +30,7 @@ public class BananOfDamage implements IItem, IUsable {
 
     @Override
     public String getName() {
-        return "Banan of Damage";
+        return "Banana of Damage";
     }
 
     @Override
@@ -43,32 +45,31 @@ public class BananOfDamage implements IItem, IUsable {
 
     @Override
     public void use(Player player) {
-        //System.out.println("som v metode use v banana");
+
         if (!this.wasUsed) {
             if (this.actualCooldown < 1) {
                 player.addDamageModifier(this.DAMAGE_MODIFIER);
                 System.out.println("Used banana of damage");
                 this.actualCooldown = this.cooldown;
                 this.wasUsed = true;
-                //System.out.println("skoncil som metotu v banana");
                 return;
             }
-
         }
-        System.out.println("this iteam is on cooldown " + this.actualCooldown);
-        //System.out.println("nepriesiel som metodouv use v banana");
+
+        System.out.println("This item is on cool down effect " + this.actualCooldown);
     }
 
     @Override
-    public void loverCooldown() {
+    public void loverCoolDown() {
         this.actualCooldown = this.actualCooldown - 1;
+
         if (this.actualCooldown < 0) {
             this.wasUsed = false;
         }
     }
 
     @Override
-    public int getActualCooldown() {
+    public int getActualCoolDown() {
         return this.actualCooldown;
     }
 

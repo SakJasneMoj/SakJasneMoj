@@ -1,7 +1,7 @@
 package sk.uniza.fri.items;
 
-import sk.uniza.fri.player.Player;
+public interface IPassive {
 
-public interface IPasive {
     double getBonus();
+
 }
