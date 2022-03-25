@@ -11,7 +11,6 @@ public class PotionOfHealtSmall implements IItem, IConsumable {
     public void consume(Player player) {
         player.heal(this.healthBack);
         System.out.println("using potion of healing");
-
     }
 
     @Override
@@ -28,6 +27,4 @@ public class PotionOfHealtSmall implements IItem, IConsumable {
     public String getUseName() {
         return this.useableName;
     }
-
-
 }
